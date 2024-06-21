@@ -1,7 +1,10 @@
+import { Router } from "./components/Router"
+import './scss/main.scss'
+
 function App() {
   return (
     <>
-      <p>Hello World</p>
+      <Router />
     </>
   )
 }
