@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
 import { InputElement } from "../components/InputElement";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import Select from 'react-select';
+import { stateOptions } from "../constants/stateOptions";
+import { departmentOptions } from "../constants/departmentOptions";
 
 export const CreateEmployee = () => {
+    const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
+    const [startDate, setStartDate] = useState<Date | null>(null);
+
     const dialogRef = useRef<HTMLDialogElement | null>(null);
 
     const saveEmployee = (event: React.FormEvent<HTMLFormElement>) => {
@@ -23,9 +31,21 @@ export const CreateEmployee = () => {
 
                 <InputElement id='last-name' type='text' content='Last Name' />
 
-                <InputElement id='date-of-birth' type='text' content='Date of Birth' />
+                <label htmlFor='date-of-birth'>Date of Birth</label>
+                <DatePicker
+                    id='date-of-birth'
+                    selected={dateOfBirth}
+                    onChange={(date) => setDateOfBirth(date)}
+                    dateFormat='dd/MM/yyyy'
+                />
 
-                <InputElement id='start-date' type='text' content='Start Date' />
+                <label htmlFor='start-date'>Start date</label>
+                <DatePicker
+                    id='start-date'
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    dateFormat='dd/MM/yyyy'
+                />
 
                 <fieldset className="address">
                     <legend>Address</legend>
@@ -35,24 +55,18 @@ export const CreateEmployee = () => {
                     <InputElement id='city' type='text' content='City' />
 
                     <label htmlFor="state">State</label>
-                    <select name="state" id="state"></select>
+                    <Select id="state" options={stateOptions} />
 
                     <InputElement id='zip-code' type='number' content='Zip Code' />
                 </fieldset>
 
                 <label htmlFor="department">Department</label>
-                <select name="department" id="department">
-                    <option>Sales</option>
-                    <option>Marketing</option>
-                    <option>Engineering</option>
-                    <option>Human Resources</option>
-                    <option>Legal</option>
-                </select>
+                <Select id="department" options={departmentOptions} />
 
                 <button type="submit">Save</button>
             </form>
         </div>
-        
+
         <dialog className="modal" ref={dialogRef}>
             <div id="confirmation" className="modal__message">Employee Created!</div>
             <button className="modal__close" onClick={() => dialogRef.current?.close()}>X</button>
