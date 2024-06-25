@@ -1,53 +1,8 @@
-import { SortingState, createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
+import { SortingState, flexRender, getCoreRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import { FormEvent, useEffect, useState } from "react"
-import { Employee } from "../inmemory/EmployeeInitialList";
-
-const columnHelper = createColumnHelper<Employee>()
-
-const columns = [
-    columnHelper.accessor('firstName', {
-        header: () => 'First Name',
-        cell: (info) => info.getValue(),
-    }),
-    columnHelper.accessor('lastName', {
-        header: () => 'Last Name',
-        cell: (info) => info.getValue(),
-    }),
-    columnHelper.accessor('startDate', {
-        header: () => 'Start Name',
-        cell: (info) => {
-            const date = info.getValue();
-            return date ? new Date(date).toLocaleDateString() : 'N/A';
-        }
-    }),
-    columnHelper.accessor('department', {
-        header: () => 'Department',
-        cell: (info) => info.getValue(),
-    }),
-    columnHelper.accessor('dateOfBirth', {
-        header: () => 'Date of Birth',
-        cell: (info) => {
-            const date = info.getValue();
-            return date ? new Date(date).toLocaleDateString() : 'N/A';
-        },
-    }),
-    columnHelper.accessor('street', {
-        header: () => 'Street',
-        cell: (info) => info.getValue(),
-    }),
-    columnHelper.accessor('city', {
-        header: () => 'City',
-        cell: (info) => info.getValue(),
-    }),
-    columnHelper.accessor('state', {
-        header: () => 'State',
-        cell: (info) => info.getValue(),
-    }),
-    columnHelper.accessor('zipCode', {
-        header: () => 'Zip Code',
-        cell: (info) => info.getValue(),
-    }),
-]
+import { Employee } from "../types/Employee";
+import { columns } from "../constants/columns";
+import { filterEmployees } from "../utils/filterEmployees";
 
 export const EmployeesTable = () => {
     const [inputSearchValue, setInputSearchValue] = useState('')
@@ -85,20 +40,6 @@ export const EmployeesTable = () => {
         setFilteredEmployees(fetchedEmployees)
     }, [])
 
-    function filterEmployees(employees: Employee[], searchTerm: string): Employee[] {
-        const lowerCaseResearch = searchTerm.toLowerCase().trim()
-
-        if (lowerCaseResearch.length === 0) {
-            return storedEmployees
-        } else {
-            return employees.filter(employee => {
-                return Object.values(employee).some(value =>
-                    value?.toString().toLowerCase().includes(lowerCaseResearch)
-                );
-            });
-        }
-    }
-
     return <>
         <div className="table__wrapper">
             <div className="sorting">
@@ -106,8 +47,8 @@ export const EmployeesTable = () => {
                     <label>Show
                         <select
                             value={table.getState().pagination.pageSize}
-                            onChange={e => {
-                                table.setPageSize(Number(e.target.value))
+                            onChange={event => {
+                                table.setPageSize(Number(event.target.value))
                             }}
                         >
                             {[10, 25, 50, 100].map(pageSize => (
@@ -170,17 +111,20 @@ export const EmployeesTable = () => {
                 </thead>
                 <tbody>
                     {
-                        table.getRowModel().rows.map((row) => (
-                            <tr key={row.id}>
-                                {row.getVisibleCells().map((cell) => (
-                                    <td key={cell.id}>
-                                        {flexRender(cell.column.columnDef.cell,
-                                            cell.getContext()
-                                        )}
-                                    </td>
-                                ))}
-                            </tr>
-                        ))
+                        filteredEmployees.length === 0 ? (<tr>
+                            <td colSpan={columns.length}>No data available.</td>
+                        </tr>)
+                            : (table.getRowModel().rows.map((row) => (
+                                <tr key={row.id}>
+                                    {row.getVisibleCells().map((cell) => (
+                                        <td key={cell.id}>
+                                            {flexRender(cell.column.columnDef.cell,
+                                                cell.getContext()
+                                            )}
+                                        </td>
+                                    ))}
+                                </tr>
+                            )))
                     }
                 </tbody>
             </table>

@@ -1,14 +1,4 @@
-export type Employee = {
-    firstName: string,
-    lastName: string,
-    startDate: Date | null,
-    department: string,
-    dateOfBirth: Date | null,
-    street: string,
-    city: string,
-    state: string,
-    zipCode: number,
-}
+import { Employee } from "../types/Employee";
 
 export const EmployeeInitialList: Employee[] = [
     { 

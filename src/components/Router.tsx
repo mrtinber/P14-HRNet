@@ -5,7 +5,7 @@ import { EmployeeList } from "../pages/EmployeeList";
 const router = createBrowserRouter([
     {
         path: '/',
-        errorElement: <p>Oups, ça marche pas</p>,
+        errorElement: <p>Oups, quelque chose ne s'est pas passé comme prévu</p>,
         children: [
             {
                 path: '',

@@ -1,80 +1,24 @@
 import { Link } from "react-router-dom";
 import { InputElement } from "../components/InputElement";
-import { useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Select, { SingleValue } from 'react-select';
+import Select from 'react-select';
 import { stateOptions } from "../constants/stateOptions";
 import { departmentOptions } from "../constants/departmentOptions";
-import { Employee } from "../inmemory/EmployeeInitialList";
+import { useEmployeeForm } from "../hooks/useEmployeeForm";
 
 export const CreateEmployee = () => {
-    const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
-    const [startDate, setStartDate] = useState<Date | null>(null);
-    const [newEmployee, setNewEmployee] = useState<Employee>({ firstName: '', lastName: '', dateOfBirth: null, startDate: null, street: '', city: '', state: '', zipCode: 0, department: '' })
-    const dialogRef = useRef<HTMLDialogElement | null>(null);
-    const [error, setError] = useState('')
-
-
-    const validateForm = (): boolean => {
-        for (const [_, value] of Object.entries(newEmployee)) {
-            if (value === '' || value === null || value === 0) {
-                return false;
-            }
-        }
-        return true;
-    };
-
-    const saveEmployee = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        console.log('ça sauve');
-
-        if (!validateForm()) {
-            setError('Veuillez remplir tous les champs')
-            console.error('Veuillez remplir tous les champs')
-            return;
-        }
-
-        const employees = JSON.parse(localStorage.getItem('employees') ?? '[]');
-        employees.push(newEmployee);
-        localStorage.setItem('employees', JSON.stringify(employees));
-
-        setError('');
-        dialogRef.current?.showModal();
-    }
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setNewEmployee(prevValues => ({
-            ...prevValues,
-            [name]: value,
-        }));
-    };
-
-    const handleSelectChange = (newValue: SingleValue<{ label: string; value: string }>, field: string) => {
-        if (newValue) {
-            setNewEmployee(prevValues => ({
-                ...prevValues,
-                [field]: newValue.value
-            }));
-        }
-    };
-
-    const handleDateOfBirthChange = (date: Date | null) => {
-        setDateOfBirth(date);
-        setNewEmployee(prevValues => ({
-            ...prevValues,
-            dateOfBirth: date
-        }));
-    };
-
-    const handleDateOfStart = (date: Date | null) => {
-        setStartDate(date);
-        setNewEmployee(prevValues => ({
-            ...prevValues,
-            startDate: date
-        }));
-    };
+    const {
+        dateOfBirth,
+        startDate,
+        dialogRef,
+        error,
+        saveEmployee,
+        handleChange,
+        handleSelectChange,
+        handleDateOfBirthChange,
+        handleDateOfStart,
+    } = useEmployeeForm()
 
     return <>
         <div className="title">
