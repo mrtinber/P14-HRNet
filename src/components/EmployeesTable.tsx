@@ -1,6 +1,6 @@
 import { SortingState, createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import { FormEvent, useEffect, useState } from "react"
-import { Employee, EmployeeInitialList } from "../inmemory/EmployeeInitialList";
+import { Employee } from "../inmemory/EmployeeInitialList";
 
 const columnHelper = createColumnHelper<Employee>()
 
@@ -53,7 +53,8 @@ export const EmployeesTable = () => {
     const [inputSearchValue, setInputSearchValue] = useState('')
     const [searchValue, setSearchValue] = useState('');
     const [sorting, setSorting] = useState<SortingState>([]);
-    const [filteredEmployees, setFilteredEmployees] = useState<Employee[]>(EmployeeInitialList);
+    const [storedEmployees, setStoredEmployees] = useState<Employee[]>([]);
+    const [filteredEmployees, setFilteredEmployees] = useState<Employee[]>([]);
 
     const submitSearchForm = (event: FormEvent) => {
         event.preventDefault();
@@ -74,15 +75,21 @@ export const EmployeesTable = () => {
     });
 
     useEffect(() => {
-        const filtered = filterEmployees(EmployeeInitialList, searchValue);
+        const filtered = filterEmployees(storedEmployees, searchValue);
         setFilteredEmployees(filtered);
     }, [searchValue])
+
+    useEffect(() => {
+        const fetchedEmployees = JSON.parse(localStorage.getItem('employees') ?? '[]');
+        setStoredEmployees(fetchedEmployees)
+        setFilteredEmployees(fetchedEmployees)
+    }, [])
 
     function filterEmployees(employees: Employee[], searchTerm: string): Employee[] {
         const lowerCaseResearch = searchTerm.toLowerCase().trim()
 
         if (lowerCaseResearch.length === 0) {
-            return EmployeeInitialList
+            return storedEmployees
         } else {
             return employees.filter(employee => {
                 return Object.values(employee).some(value =>
