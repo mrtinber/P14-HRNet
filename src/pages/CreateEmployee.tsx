@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import { InputElement } from "../components/InputElement";
+import { useRef } from "react";
 
 export const CreateEmployee = () => {
-    const saveEmployee = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const dialogRef = useRef<HTMLDialogElement | null>(null);
+
+    const saveEmployee = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log('ça sauve');
+        dialogRef.current?.showModal();
     }
 
     return <>
@@ -14,7 +18,7 @@ export const CreateEmployee = () => {
         <div className="container">
             <Link to="employee-list">View Current Employees</Link>
             <h2>Create Employee</h2>
-            <form action="#" id="create-employee">
+            <form onSubmit={saveEmployee} id="create-employee">
                 <InputElement id='first-name' type='text' content='First Name' />
 
                 <InputElement id='last-name' type='text' content='Last Name' />
@@ -44,10 +48,14 @@ export const CreateEmployee = () => {
                     <option>Human Resources</option>
                     <option>Legal</option>
                 </select>
-            </form>
 
-            <button onClick={saveEmployee}>Save</button>
+                <button type="submit">Save</button>
+            </form>
         </div>
-        <div id="confirmation" className="modal">Employee Created!</div>
+        
+        <dialog className="modal" ref={dialogRef}>
+            <div id="confirmation" className="modal__message">Employee Created!</div>
+            <button className="modal__close" onClick={() => dialogRef.current?.close()}>X</button>
+        </dialog>
     </>
 }

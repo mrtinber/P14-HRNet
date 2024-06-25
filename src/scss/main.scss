@@ -102,3 +102,18 @@ label {
     align-items: stretch;
     margin: auto;
 }
+
+.modal{
+    position: relative;
+    overflow: visible;
+
+    &__close{
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        border-radius: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
