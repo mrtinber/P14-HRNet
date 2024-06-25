@@ -10,6 +10,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        button {
+            margin:  15px auto;
+        }
+    }
 }
 
 label {
@@ -116,4 +125,8 @@ label {
         justify-content: center;
         align-items: center;
     }
+}
+
+.error__message {
+    color: red;
 }

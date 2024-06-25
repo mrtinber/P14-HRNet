@@ -15,15 +15,21 @@ const columns = [
     }),
     columnHelper.accessor('startDate', {
         header: () => 'Start Name',
-        cell: (info) => info.getValue().toLocaleDateString(),
+        cell: (info) => {
+            const date = info.getValue();
+            return date ? new Date(date).toLocaleDateString() : 'N/A';
+        }
     }),
     columnHelper.accessor('department', {
         header: () => 'Department',
         cell: (info) => info.getValue(),
     }),
-    columnHelper.accessor('birthDate', {
+    columnHelper.accessor('dateOfBirth', {
         header: () => 'Date of Birth',
-        cell: (info) => info.getValue().toLocaleDateString(),
+        cell: (info) => {
+            const date = info.getValue();
+            return date ? new Date(date).toLocaleDateString() : 'N/A';
+        },
     }),
     columnHelper.accessor('street', {
         header: () => 'Street',
@@ -80,7 +86,7 @@ export const EmployeesTable = () => {
         } else {
             return employees.filter(employee => {
                 return Object.values(employee).some(value =>
-                    value.toString().toLowerCase().includes(lowerCaseResearch)
+                    value?.toString().toLowerCase().includes(lowerCaseResearch)
                 );
             });
         }
