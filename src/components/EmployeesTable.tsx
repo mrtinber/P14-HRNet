@@ -3,6 +3,8 @@ import { FormEvent, useEffect, useState } from "react"
 import { Employee } from "../types/Employee";
 import { columns } from "../constants/columns";
 import { filterEmployees } from "../utils/filterEmployees";
+import { EmployeeInitialList } from "../inmemory/EmployeeInitialList";
+import { Pagination } from "./Pagination";
 
 export const EmployeesTable = () => {
     const [inputSearchValue, setInputSearchValue] = useState('')
@@ -10,6 +12,10 @@ export const EmployeesTable = () => {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [storedEmployees, setStoredEmployees] = useState<Employee[]>([]);
     const [filteredEmployees, setFilteredEmployees] = useState<Employee[]>([]);
+    const [pagination, setPagination] = useState({
+        pageIndex: 0, //initial page index
+        pageSize: 10, //default page size
+    });
 
     const submitSearchForm = (event: FormEvent) => {
         event.preventDefault();
@@ -17,14 +23,16 @@ export const EmployeesTable = () => {
     };
 
     const table = useReactTable({
-        data: filteredEmployees,
+        data: EmployeeInitialList,  // 'EmployeeInitialList' for test or 'filteredEmployees' for real data
         columns,
         debugTable: true,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
+        onPaginationChange: setPagination,
         getSortedRowModel: getSortedRowModel(),
         state: {
             sorting,
+            pagination,
         },
         onSortingChange: setSorting,
     });
@@ -128,26 +136,7 @@ export const EmployeesTable = () => {
                     }
                 </tbody>
             </table>
-            <div className="index">
-                <div className="index__info">
-                    Showing {table.getRowModel().rows.length.toLocaleString()} of{' '}
-                    {table.getRowCount().toLocaleString()} entries
-                </div>
-                <div className="index__buttons">
-                    <button onClick={() => table.firstPage()} disabled={!table.getCanPreviousPage()}>
-                        {'First'}
-                    </button>
-                    <button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-                        {'Previous'}
-                    </button>
-                    <button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-                        {'Next'}
-                    </button>
-                    <button onClick={() => table.lastPage()} disabled={!table.getCanNextPage()}>
-                        {'Last'}
-                    </button>
-                </div>
-            </div>
+            <Pagination pagination={pagination} table={table}/>
         </div>
     </>
 }

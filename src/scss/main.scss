@@ -16,7 +16,7 @@
         flex-direction: column;
 
         button {
-            margin:  15px auto;
+            margin: 15px auto;
         }
     }
 }
@@ -85,6 +85,14 @@ label {
             text-overflow: ellipsis;
             overflow: hidden;
         }
+
+        tr:nth-child(even) {
+            background-color: #fff;
+        }
+
+        tr:hover {
+            background-color: #f6f6f6;
+        }
     }
 }
 
@@ -96,12 +104,39 @@ label {
     margin: 0.75rem 0px;
     color: #333333;
 
-    button {
+    &__wrapper {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    &__button {
         border: none;
         background: none;
         color: #666666;
         font-family: 'Times New Roman', Times, serif;
         font-size: 16px;
+        padding: 0.5em 1em;
+        border-radius: 2px;
+        cursor: pointer;
+
+        &--current {
+            padding: 0.5em 1em;
+            border: 1px solid #979797;
+            border-radius: 2px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    }
+
+    &__button:hover {
+        background: #333333;
+        color: white;
+    }
+
+    &__ellipse {
+        padding: 0.5em 1em;
     }
 }
 
@@ -112,11 +147,11 @@ label {
     margin: auto;
 }
 
-.modal{
+.modal {
     position: relative;
     overflow: visible;
 
-    &__close{
+    &__close {
         position: absolute;
         top: -10px;
         right: -10px;
