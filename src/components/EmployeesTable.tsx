@@ -1,17 +1,20 @@
 import { SortingState, flexRender, getCoreRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import { FormEvent, useEffect, useState } from "react"
-import { Employee } from "../types/Employee";
 import { columns } from "../constants/columns";
-import { filterEmployees } from "../utils/filterEmployees";
 import { EmployeeInitialList } from "../inmemory/EmployeeInitialList";
 import { Pagination } from "./Pagination";
+import { useStore } from "../store/useStore";
 
 export const EmployeesTable = () => {
     const [inputSearchValue, setInputSearchValue] = useState('')
     const [searchValue, setSearchValue] = useState('');
     const [sorting, setSorting] = useState<SortingState>([]);
-    const [storedEmployees, setStoredEmployees] = useState<Employee[]>([]);
-    const [filteredEmployees, setFilteredEmployees] = useState<Employee[]>([]);
+    const { filteredEmployees, updateEmployees, filterEmployees } = useStore((state) => ({
+        filteredEmployees: state.filteredEmployees,
+        updateEmployees: state.updateEmployees,
+        filterEmployees: state.filterEmployees,
+    }));
+
     const [pagination, setPagination] = useState({
         pageIndex: 0, //initial page index
         pageSize: 10, //default page size
@@ -23,7 +26,7 @@ export const EmployeesTable = () => {
     };
 
     const table = useReactTable({
-        data: EmployeeInitialList,  // 'EmployeeInitialList' for test or 'filteredEmployees' for real data
+        data: filteredEmployees,  // 'EmployeeInitialList' for test or 'filteredEmployees' for real data
         columns,
         debugTable: true,
         getCoreRowModel: getCoreRowModel(),
@@ -38,15 +41,13 @@ export const EmployeesTable = () => {
     });
 
     useEffect(() => {
-        const filtered = filterEmployees(storedEmployees, searchValue);
-        setFilteredEmployees(filtered);
+        filterEmployees(searchValue);
     }, [searchValue])
 
     useEffect(() => {
         const fetchedEmployees = JSON.parse(localStorage.getItem('employees') ?? '[]');
-        setStoredEmployees(fetchedEmployees)
-        setFilteredEmployees(fetchedEmployees)
-    }, [])
+        updateEmployees(fetchedEmployees)
+    }, [updateEmployees])
 
     return <>
         <div className="table__wrapper">

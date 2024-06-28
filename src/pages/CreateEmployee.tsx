@@ -6,6 +6,7 @@ import Select from 'react-select';
 import { stateOptions } from "../constants/stateOptions";
 import { departmentOptions } from "../constants/departmentOptions";
 import { useEmployeeForm } from "../hooks/useEmployeeForm";
+import { Modal } from "../components/Modal";
 
 export const CreateEmployee = () => {
     const {
@@ -70,9 +71,10 @@ export const CreateEmployee = () => {
             </form>
         </div>
 
-        <dialog className="modal" ref={dialogRef}>
+        {/* <dialog className="modal" ref={dialogRef}>
             <div id="confirmation" className="modal__message">Employee Created!</div>
             <button className="modal__close" onClick={() => dialogRef.current?.close()}>X</button>
-        </dialog>
+        </dialog> */}
+        <Modal ref={dialogRef}/>
     </>
 }

@@ -1,14 +1,18 @@
 import { useRef, useState } from "react";
-import { Employee } from "../types/Employee";
 import { SingleValue } from "react-select";
+import { useStore } from "../store/useStore";
 
 export const useEmployeeForm = () => {
     const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
     const [startDate, setStartDate] = useState<Date | null>(null);
-    const [newEmployee, setNewEmployee] = useState<Employee>({ firstName: '', lastName: '', dateOfBirth: null, startDate: null, street: '', city: '', state: '', zipCode: 0, department: '' })
+    const { newEmployee, addEmployee, updateNewEmployee } = useStore((state) => ({
+        newEmployee: state.newEmployee,
+        addEmployee: state.addEmployee,
+        updateNewEmployee: state.updateNewEmployee,
+    }));
     const dialogRef = useRef<HTMLDialogElement | null>(null);
     const [error, setError] = useState('')
-
+    // const [isOpen, setIsOpen] = useState(false)
 
     const validateForm = (): boolean => {
         for (const [_, value] of Object.entries(newEmployee)) {
@@ -28,47 +32,41 @@ export const useEmployeeForm = () => {
             return;
         }
 
+        addEmployee(newEmployee);
+
         const employees = JSON.parse(localStorage.getItem('employees') ?? '[]');
         employees.push(newEmployee);
         localStorage.setItem('employees', JSON.stringify(employees));
 
         setError('');
+        // setIsOpen(true);
         dialogRef.current?.showModal();
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        setNewEmployee(prevValues => ({
-            ...prevValues,
-            [name]: value,
-        }));
+        updateNewEmployee(name, value);
     };
 
     const handleSelectChange = (newValue: SingleValue<{ label: string; value: string }>, field: string) => {
         if (newValue) {
-            setNewEmployee(prevValues => ({
-                ...prevValues,
-                [field]: newValue.value
-            }));
+            updateNewEmployee(field, newValue.value);
         }
     };
 
     const handleDateOfBirthChange = (date: Date | null) => {
         setDateOfBirth(date);
-        setNewEmployee(prevValues => ({
-            ...prevValues,
-            dateOfBirth: date
-        }));
+        updateNewEmployee('dateOfBirth', date)
     };
 
     const handleDateOfStart = (date: Date | null) => {
         setStartDate(date);
-        setNewEmployee(prevValues => ({
-            ...prevValues,
-            startDate: date
-        }));
+        updateNewEmployee('startDate', date);
     };
 
+    // const handleClose = () => {
+    //     setIsOpen(false);
+    // };
 
     return {
         dateOfBirth,
@@ -83,5 +81,7 @@ export const useEmployeeForm = () => {
         handleSelectChange,
         handleDateOfBirthChange,
         handleDateOfStart,
+        // isOpen,
+        // handleClose,
     }
 }
