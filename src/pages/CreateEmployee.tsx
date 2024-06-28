@@ -12,13 +12,15 @@ export const CreateEmployee = () => {
     const {
         dateOfBirth,
         startDate,
-        dialogRef,
+        // dialogRef,
         error,
         saveEmployee,
         handleChange,
         handleSelectChange,
         handleDateOfBirthChange,
         handleDateOfStart,
+        isOpen,
+        handleClose,
     } = useEmployeeForm()
 
     return <>
@@ -71,10 +73,15 @@ export const CreateEmployee = () => {
             </form>
         </div>
 
-        {/* <dialog className="modal" ref={dialogRef}>
-            <div id="confirmation" className="modal__message">Employee Created!</div>
-            <button className="modal__close" onClick={() => dialogRef.current?.close()}>X</button>
-        </dialog> */}
-        <Modal ref={dialogRef}/>
+        {/* <Modal ref={dialogRef}/> */}
+        <Modal
+            open={isOpen}
+            onClose={handleClose}
+            message='Employee Created!'
+            containerClassName='modal'
+            messageClassName='modal__message'
+            closeButtonClassName='modal__close'
+            closeButtonLabel='X'
+        />
     </>
 }

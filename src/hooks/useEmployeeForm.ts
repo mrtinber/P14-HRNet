@@ -5,14 +5,10 @@ import { useStore } from "../store/useStore";
 export const useEmployeeForm = () => {
     const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
     const [startDate, setStartDate] = useState<Date | null>(null);
-    const { newEmployee, addEmployee, updateNewEmployee } = useStore((state) => ({
-        newEmployee: state.newEmployee,
-        addEmployee: state.addEmployee,
-        updateNewEmployee: state.updateNewEmployee,
-    }));
+    const { newEmployee, addEmployee, updateNewEmployee } = useStore()
     const dialogRef = useRef<HTMLDialogElement | null>(null);
     const [error, setError] = useState('')
-    // const [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
 
     const validateForm = (): boolean => {
         for (const [_, value] of Object.entries(newEmployee)) {
@@ -39,7 +35,7 @@ export const useEmployeeForm = () => {
         localStorage.setItem('employees', JSON.stringify(employees));
 
         setError('');
-        // setIsOpen(true);
+        setIsOpen(true);
         dialogRef.current?.showModal();
     }
 
@@ -64,9 +60,9 @@ export const useEmployeeForm = () => {
         updateNewEmployee('startDate', date);
     };
 
-    // const handleClose = () => {
-    //     setIsOpen(false);
-    // };
+    const handleClose = () => {
+        setIsOpen(false);
+    };
 
     return {
         dateOfBirth,
@@ -81,7 +77,7 @@ export const useEmployeeForm = () => {
         handleSelectChange,
         handleDateOfBirthChange,
         handleDateOfStart,
-        // isOpen,
-        // handleClose,
+        isOpen,
+        handleClose,
     }
 }
