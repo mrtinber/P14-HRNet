@@ -4,7 +4,9 @@ import './scss/main.scss'
 function App() {
   return (
     <>
-      <Router />
+      <div data-theme='dark'>
+        <Router />
+      </div>
     </>
   )
 }

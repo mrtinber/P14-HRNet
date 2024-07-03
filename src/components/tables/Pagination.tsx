@@ -1,5 +1,5 @@
 import { Table } from "@tanstack/react-table";
-import { Employee } from "../types/Employee";
+import { Employee } from "../../types/Employee";
 
 export type PaginationProps = {
     pagination: {

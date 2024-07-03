@@ -1,0 +1,23 @@
+/***************Colors***************/
+
+$main-blue: #0065fc;
+$secondary-blue: #2684ff;
+$bg-grey: #f2f2f2;
+$border-grey: #979797;
+$txt-grey: #666666;
+$txt-darkgrey: #333333;
+$error: #b00020;
+$white: #fff;
+$black: #000;
+
+[data-theme="dark"] {
+    $main-blue: #A576DE;
+    $secondary-blue: #bb86fc;
+    $bg-grey: #292929;
+    $border-grey: #616161;
+    $txt-grey: #e1e1e1;
+    $txt-darkgrey: #959595;
+    $error: #cf6679;
+    $white: #000;
+    $black: #fff;
+}
