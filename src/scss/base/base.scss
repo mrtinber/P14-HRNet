@@ -8,15 +8,16 @@
 }
 
 body {
-    background: #fff;
     margin: auto;
-    width: 90%;
+    width: 100%;
 }
 
-.title {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    color: $main-blue;
-    margin: 15px 0px;
+#root {
+    height: 100vh;
+}
+
+.app__container {
+    @include themed() {
+        background: t(bg);
+    }
 }

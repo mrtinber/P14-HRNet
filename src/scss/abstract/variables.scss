@@ -1,23 +1,68 @@
 /***************Colors***************/
 
+/***Default theme***/
+$bg--light: #fff;
 $main-blue: #0065fc;
 $secondary-blue: #2684ff;
-$bg-grey: #f2f2f2;
-$border-grey: #979797;
-$txt-grey: #666666;
-$txt-darkgrey: #333333;
-$error: #b00020;
-$white: #fff;
-$black: #000;
+$card-bg--light: #f2f2f2;
+$modal-bg--light: #fff;
+$border--light: #979797;
+$txt-main--light: #666666;
+$txt-secondary--light: #333333;
+$error--light: #b00020;
 
-[data-theme="dark"] {
-    $main-blue: #A576DE;
-    $secondary-blue: #bb86fc;
-    $bg-grey: #292929;
-    $border-grey: #616161;
-    $txt-grey: #e1e1e1;
-    $txt-darkgrey: #959595;
-    $error: #cf6679;
-    $white: #000;
-    $black: #fff;
+/***Dark theme***/
+$bg--dark: #121212;
+$main-purple: #A576DE;
+$secondary-purple: #bb86fc;
+$card-bg--dark: #292929;
+$modal-bg--dark: #292929;
+$border--dark: #616161;
+$txt-main--dark: #e1e1e1;
+$txt-secondary--dark: #959595;
+$error--dark: #cf6679;
+
+$themes: (
+  default : (main-color: $main-blue,
+    secondary-color: $secondary-blue,
+    bg: $bg--light,
+    card-bg: $card-bg--light,
+    modal-bg: $modal-bg--light,
+    border: $border--light,
+    txt-main: $txt-main--light,
+    txt-secondary: $txt-secondary--light,
+    error: $error--light,
+  ),
+  dark : (main-color: $main-purple,
+    secondary-color: $secondary-purple,
+    bg: $bg--dark,
+    card-bg: $card-bg--dark,
+    modal-bg: $modal-bg--dark,
+    border: $border--dark,
+    txt-main: $txt-main--dark,
+    txt-secondary: $txt-secondary--dark,
+    error: $error--dark,
+  )
+);
+
+@mixin themed() {
+  @each $theme, $map in $themes {
+    .theme--#{$theme} & {
+      $theme-map: (
+        ) !global;
+
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}'
+        );
+      $theme-map: map-merge($theme-map, ($key: $value)) !global;
+    }
+
+    @content;
+    $theme-map: null !global;
+  }
+}
+}
+
+@function t($key) {
+  @return map-get($theme-map, $key);
 }

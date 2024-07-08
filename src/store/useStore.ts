@@ -10,6 +10,8 @@ interface EmployeesList {
     updateEmployees: (employees: Employee[]) => void,
     updateNewEmployee: (field: string, value: any) => void,
     filterEmployees: (searchValue: string) => void,
+    isThemeDark : boolean,
+    toggleDarkTheme: (checked: boolean) => void,
 }
 
 export const useStore = create<EmployeesList>()(devtools((set) => ({
@@ -42,4 +44,8 @@ export const useStore = create<EmployeesList>()(devtools((set) => ({
             )
         )
     })),
+    isThemeDark: false,
+    toggleDarkTheme: (checked) => set(() => ({
+        isThemeDark: checked
+    }))
 })))

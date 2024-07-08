@@ -1,21 +1,47 @@
+@import '../abstract/variables.scss';
+
+.app__container {
+    @include themed() {
+        background-color: t(bg);
+    }
+}
+
+.content {
+    width: 100%;
+    height: 100vh;
+    margin: auto;
+    padding: 0px 5%;
+
+    @include themed() {
+        background-color: t(bg);
+    }
+}
+
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: $bg-grey;
     border-radius: 25px;
     padding: 30px 50px;
-    color: $txt-darkgrey;
-    margin: 15px 0px;
+
+    @include themed() {
+        color: t(txt-secondary);
+        background-color: t(card-bg);
+    }
 
     a {
-        color: $txt-darkgrey;
         text-decoration: none;
+
+        @include themed() {
+            color: t(txt-secondary);
+        }
     }
 
     a:hover {
-        color: $main-blue;
+        @include themed() {
+            color: t(main-color);
+        }
     }
 
     &__header {
@@ -53,8 +79,11 @@
             }
 
             input:focus-visible {
-                border: 2px solid $secondary-blue;
                 outline: none;
+
+                @include themed() {
+                    border: t(secondary-color);
+                }
             }
 
             .react-datepicker-wrapper {
@@ -66,8 +95,11 @@
             }
 
             fieldset {
-                border: 2px solid $border-grey;
                 border-radius: 4px;
+
+                @include themed() {
+                    border: 2px solid t(border)
+                }
             }
 
             .address {
@@ -86,19 +118,24 @@
             gap: 10px;
 
             .save-button {
-                background-color: $main-blue;
                 border: none;
                 border-radius: 10px;
                 padding: 10px 20px;
                 width: 150px;
-                color: $white;
                 font-size: 1rem;
                 font-weight: 700;
                 cursor: pointer;
+
+                @include themed() {
+                    color: t(bg);
+                    background-color: t(main-color);
+                }
             }
 
             .error__message {
-                color: $error;
+                @include themed() {
+                    color: t(error);
+                }
             }
         }
     }
