@@ -15,9 +15,3 @@ body {
 #root {
     height: 100vh;
 }
-
-.app__container {
-    @include themed() {
-        background: t(bg);
-    }
-}

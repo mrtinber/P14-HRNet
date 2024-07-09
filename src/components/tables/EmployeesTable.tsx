@@ -1,9 +1,9 @@
 import { SortingState, flexRender, getCoreRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import { FormEvent, useEffect, useState } from "react"
 import { columns } from "../../constants/columns";
-// import { EmployeeInitialList } from "../inmemory/EmployeeInitialList";
 import { Pagination } from "./Pagination";
 import { useStore } from "../../store/useStore";
+// import { EmployeeInitialList } from "../inmemory/EmployeeInitialList";
 
 export const EmployeesTable = () => {
     const [inputSearchValue, setInputSearchValue] = useState('')

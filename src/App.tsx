@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <div className= {isThemeDark ? 'app__container theme--dark' : 'app__container theme--default'}>
+      <div className= {isThemeDark ? 'theme--dark' : 'theme--default'}>
         <Router />
       </div>
     </>

@@ -10,6 +10,8 @@ $border--light: #979797;
 $txt-main--light: #666666;
 $txt-secondary--light: #333333;
 $error--light: #b00020;
+$datepicker-bg--light: #fff;
+$datepicker-header--light: #f2f2f2;
 
 /***Dark theme***/
 $bg--dark: #121212;
@@ -21,6 +23,8 @@ $border--dark: #616161;
 $txt-main--dark: #e1e1e1;
 $txt-secondary--dark: #959595;
 $error--dark: #cf6679;
+$datepicker-bg--dark: #333;
+$datepicker-header--dark: #292929;
 
 $themes: (
   default : (main-color: $main-blue,
@@ -32,6 +36,9 @@ $themes: (
     txt-main: $txt-main--light,
     txt-secondary: $txt-secondary--light,
     error: $error--light,
+    scrollbar-hover: $txt-main--light,
+    datepicker-bg: $datepicker-bg--light,
+    datepicker-header: $datepicker-header--light,
   ),
   dark : (main-color: $main-purple,
     secondary-color: $secondary-purple,
@@ -42,6 +49,9 @@ $themes: (
     txt-main: $txt-main--dark,
     txt-secondary: $txt-secondary--dark,
     error: $error--dark,
+    scrollbar-hover: $txt-secondary--dark,
+    datepicker-bg: $datepicker-bg--dark,
+    datepicker-header: $datepicker-header--dark,
   )
 );
 

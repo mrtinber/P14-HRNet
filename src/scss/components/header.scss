@@ -2,13 +2,25 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    // width: 90%;
     padding: 15px 5%;
     margin: 0px auto;
+    transition: all ease-in-out 0.2s;
 
     @include themed() {
         color: t(main-color);
         background-color: t(bg);
+    }
+
+    a {
+        text-decoration: none;
+
+        @include themed() {
+            color: t(main-color);
+        }
+    }
+
+    label {
+        cursor: pointer;
     }
 }
 
