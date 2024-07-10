@@ -156,7 +156,7 @@
 
             .save-button:hover {
                 @include themed() {
-                    box-shadow: 0 0 0 2px t(secondary-color);
+                    box-shadow: 0 0 0 3px t(secondary-color);
                 }
             }
 

@@ -9,6 +9,7 @@ interface EmployeesList {
     addEmployee: (employee: Employee) => void,
     updateEmployees: (employees: Employee[]) => void,
     updateNewEmployee: (field: string, value: any) => void,
+    resetNewEmployee: () => void,
     filterEmployees: (searchValue: string) => void,
     isThemeDark : boolean,
     toggleDarkTheme: (checked: boolean) => void,
@@ -38,6 +39,19 @@ export const useStore = create<EmployeesList>()(devtools((set) => ({
     })),
     updateNewEmployee: (field, value) => set((state) => ({
         newEmployee: { ...state.newEmployee, [field]: value }
+    })), 
+    resetNewEmployee: () => set(() => ({
+        newEmployee: {
+            firstName: '',
+            lastName: '',
+            startDate: null,
+            department: '',
+            dateOfBirth: null,
+            street: '',
+            city: '',
+            state: '',
+            zipCode: 0
+        }
     })), 
     filterEmployees: (searchValue) => set((state) => ({
         filteredEmployees: state.employees.filter(employee => 

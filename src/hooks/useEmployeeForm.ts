@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SingleValue } from "react-select";
 import { useStore } from "../store/useStore";
 
 export const useEmployeeForm = () => {
     const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
     const [startDate, setStartDate] = useState<Date | null>(null);
-    const { newEmployee, addEmployee, updateNewEmployee, isOpen, toggleOpen } = useStore()
+    const { newEmployee, addEmployee, updateNewEmployee, isOpen, toggleOpen, resetNewEmployee } = useStore()
     const [error, setError] = useState('')
 
+    useEffect(() => {
+        resetNewEmployee()
+    }, []);
+    
     const validateForm = (): boolean => {
         for (const [_, value] of Object.entries(newEmployee)) {
             if (value === '' || value === null || value === 0) {
@@ -34,6 +38,7 @@ export const useEmployeeForm = () => {
 
         setError('');
         toggleOpen(true);
+        // resetNewEmployee();
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
