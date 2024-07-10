@@ -12,6 +12,8 @@ interface EmployeesList {
     filterEmployees: (searchValue: string) => void,
     isThemeDark : boolean,
     toggleDarkTheme: (checked: boolean) => void,
+    isOpen: boolean, 
+    toggleOpen: (value: boolean) => void,
 }
 
 export const useStore = create<EmployeesList>()(devtools((set) => ({
@@ -47,5 +49,9 @@ export const useStore = create<EmployeesList>()(devtools((set) => ({
     isThemeDark: false,
     toggleDarkTheme: (checked) => set(() => ({
         isThemeDark: checked
+    })),
+    isOpen: false, 
+    toggleOpen: (value) => set(() => ({
+        isOpen: value
     }))
 })))

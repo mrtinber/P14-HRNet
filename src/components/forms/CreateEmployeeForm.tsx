@@ -14,7 +14,6 @@ export const CreateEmployeeForm = () => {
         startDate,
         error,
         saveEmployee,
-        handleChange,
         handleSelectChange,
         handleDateOfBirthChange,
         handleDateOfStart,
@@ -28,8 +27,10 @@ export const CreateEmployeeForm = () => {
         <form onSubmit={saveEmployee} id="create-employee">
             <div className="input-container">
                 <div className="personal-information">
-                    <InputElement id='first-name' type='text' name='firstName' content='First Name' onChange={handleChange} />
-                    <InputElement id='last-name' type='text' name='lastName' content='Last Name' onChange={handleChange} />
+                    <InputElement id='first-name' type='text' name='firstName' content='First Name' pattern="^[A-Za-z\-\s]+$"
+                        errorMessage="First name should contain only letters." />
+                    <InputElement id='last-name' type='text' name='lastName' content='Last Name' pattern="^[A-Za-z\-\s]+$"
+                        errorMessage="Last name should contain only letters." />
                     <label htmlFor='date-of-birth'>Date of Birth</label>
                     <DatePicker
                         id='date-of-birth'
@@ -49,11 +50,14 @@ export const CreateEmployeeForm = () => {
                 </div>
                 <fieldset className="address">
                     <legend>Address</legend>
-                    <InputElement id='street' type='text' name='street' content='Street' onChange={handleChange} />
-                    <InputElement id='city' type='text' name='city' content='City' onChange={handleChange} />
+                    <InputElement id='street' type='text' name='street' content='Street' pattern="^[A-Za-zÀ-ÖØ-öø-ÿ0-9' ]+$"
+                        errorMessage="Address should not contain any special character." />
+                    <InputElement id='city' type='text' name='city' content='City' pattern="^[A-Za-zÀ-ÖØ-öø-ÿ' ]+$"
+                        errorMessage="City name should contain only letters." />
                     <label htmlFor="state">State</label>
                     <Select styles={customStyles} id="state" options={stateOptions} onChange={(option) => handleSelectChange(option, "state")} />
-                    <InputElement id='zip-code' type='number' name='zipCode' content='Zip Code' onChange={handleChange} />
+                    <InputElement id='zip-code' type='number' name='zipCode' content='Zip Code' pattern="^\d{5}$"
+                        errorMessage="Zip code should be a 5-digit number." />
                 </fieldset>
             </div>
             <div className="save-container">

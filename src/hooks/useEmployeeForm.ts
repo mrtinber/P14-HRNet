@@ -1,14 +1,12 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { SingleValue } from "react-select";
 import { useStore } from "../store/useStore";
 
 export const useEmployeeForm = () => {
     const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
     const [startDate, setStartDate] = useState<Date | null>(null);
-    const { newEmployee, addEmployee, updateNewEmployee } = useStore()
-    const dialogRef = useRef<HTMLDialogElement | null>(null);
+    const { newEmployee, addEmployee, updateNewEmployee, isOpen, toggleOpen } = useStore()
     const [error, setError] = useState('')
-    const [isOpen, setIsOpen] = useState(false)
 
     const validateForm = (): boolean => {
         for (const [_, value] of Object.entries(newEmployee)) {
@@ -35,13 +33,19 @@ export const useEmployeeForm = () => {
         localStorage.setItem('employees', JSON.stringify(employees));
 
         setError('');
-        setIsOpen(true);
-        dialogRef.current?.showModal();
+        toggleOpen(true);
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
+        const { name, value, pattern } = event.target;
         updateNewEmployee(name, value);
+
+        if (!new RegExp(pattern).test(value)) {
+            setError('Wrong input pattern')
+            console.error({ error })
+        } else {
+            setError('')
+        }
     };
 
     const handleSelectChange = (newValue: SingleValue<{ label: string; value: string }>, field: string) => {
@@ -61,14 +65,13 @@ export const useEmployeeForm = () => {
     };
 
     const handleClose = () => {
-        setIsOpen(false);
+        toggleOpen(false);
     };
 
     return {
         dateOfBirth,
         startDate,
         newEmployee,
-        dialogRef,
         error,
         setDateOfBirth,
         setStartDate,
@@ -78,6 +81,7 @@ export const useEmployeeForm = () => {
         handleDateOfBirthChange,
         handleDateOfStart,
         isOpen,
+        toggleOpen,
         handleClose,
     }
 }

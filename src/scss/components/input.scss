@@ -19,4 +19,13 @@ form {
             border: 2px solid t(secondary-color);
         }
     }
+
+    .input__error {
+        font-size: 12px;
+        padding-top: 4px;
+
+        @include themed() {
+            color: t(error)
+        }
+    }
 }

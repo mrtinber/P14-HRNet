@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 type ModalProps = {
-    open: boolean,     // If 'true', the modal is open, if 'false, the modal is closed
+    open: boolean,     // If 'true', the modal is open, if 'false', the modal is closed
     onClose: () => void,      // Allowing you to customize the function called on closing
     message?: string,      // *Optional* : To customize the message of the modal if needed
     containerClassName?: string,     // *Optional* : To customize the class name of the container, to add styles
