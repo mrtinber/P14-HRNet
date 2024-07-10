@@ -46,7 +46,7 @@ export const CreateEmployeeForm = () => {
                         dateFormat='dd/MM/yyyy'
                     />
                     <label htmlFor="department">Department</label>
-                    <Select styles={customStyles} id="department" options={departmentOptions} onChange={(option) => handleSelectChange(option, "department")} />
+                    <Select styles={customStyles} id="department" options={departmentOptions} onChange={(option) => handleSelectChange(option, "department")} aria-label="select-department" />
                 </div>
                 <fieldset className="address">
                     <legend>Address</legend>
@@ -55,7 +55,7 @@ export const CreateEmployeeForm = () => {
                     <InputElement id='city' type='text' name='city' content='City' pattern="^[A-Za-zÀ-ÖØ-öø-ÿ' ]+$"
                         errorMessage="City name should contain only letters." />
                     <label htmlFor="state">State</label>
-                    <Select styles={customStyles} id="state" options={stateOptions} onChange={(option) => handleSelectChange(option, "state")} />
+                    <Select styles={customStyles} id="state" options={stateOptions} onChange={(option) => handleSelectChange(option, "state")} aria-label="select-state" />
                     <InputElement id='zip-code' type='number' name='zipCode' content='Zip Code' pattern="^\d{5}$"
                         errorMessage="Zip code should be a 5-digit number." />
                 </fieldset>

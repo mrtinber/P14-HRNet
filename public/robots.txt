@@ -1,0 +1,5 @@
+# robots.txt pour autoriser l'indexation de toutes les pages
+User-agent: *
+Disallow:
+
+Sitemap: http://localhost:5173/
