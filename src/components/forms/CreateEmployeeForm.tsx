@@ -27,9 +27,9 @@ export const CreateEmployeeForm = () => {
         <form onSubmit={saveEmployee} id="create-employee">
             <div className="input-container">
                 <div className="personal-information">
-                    <InputElement id='first-name' type='text' name='firstName' content='First Name' pattern="^[A-Za-z\-\s]+$"
+                    <InputElement id='first-name' type='text' name='firstName' content='First Name' pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\-\s]+$"
                         errorMessage="First name should contain only letters." />
-                    <InputElement id='last-name' type='text' name='lastName' content='Last Name' pattern="^[A-Za-z\-\s]+$"
+                    <InputElement id='last-name' type='text' name='lastName' content='Last Name' pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\-\s]+$"
                         errorMessage="Last name should contain only letters." />
                     <label htmlFor='date-of-birth'>Date of Birth</label>
                     <DatePicker
