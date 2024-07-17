@@ -1,5 +1,5 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import { Employee } from "../types/Employee";
+import { Employee } from "../../coreLogic/types/Employee";
 
 const columnHelper = createColumnHelper<Employee>()
 

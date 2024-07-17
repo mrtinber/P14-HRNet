@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SingleValue } from "react-select";
-import { useStore } from "../store/useStore";
+import { useStore } from "../../coreLogic/store/useStore";
 
 export const useEmployeeForm = () => {
     const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
@@ -38,7 +38,6 @@ export const useEmployeeForm = () => {
 
         setError('');
         toggleOpen(true);
-        // resetNewEmployee();
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

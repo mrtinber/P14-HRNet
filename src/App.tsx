@@ -1,6 +1,6 @@
-import { Router } from "./components/Router"
-import './scss/main.scss'
-import { useStore } from "./store/useStore"
+import { useStore } from './coreLogic/store/useStore'
+import { Router } from './Router'
+import './ui/scss/main.scss'
 
 function App() {
   const { isThemeDark } = useStore()

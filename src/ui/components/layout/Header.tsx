@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { useStore } from "../../store/useStore"
-import { SunIcon } from "./SunIcon";
-import { MoonIcon } from "./MoonIcon";
+import { SunIcon } from "../icons/SunIcon";
+import { MoonIcon } from "../icons/MoonIcon";
+import { useStore } from "../../../coreLogic/store/useStore";
 
 export const Header = () => {
     const { isThemeDark, toggleDarkTheme } = useStore();

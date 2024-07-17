@@ -1,4 +1,4 @@
-import { Employee } from "../types/Employee";
+import { Employee } from "../../coreLogic/types/Employee";
 
 export const EmployeeInitialList: Employee[] = [
     { 
