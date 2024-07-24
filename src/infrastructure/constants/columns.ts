@@ -13,7 +13,7 @@ export const columns = [
         cell: (info) => info.getValue(),
     }),
     columnHelper.accessor('startDate', {
-        header: () => 'Start Name',
+        header: () => 'Start Date',
         cell: (info) => {
             const date = info.getValue();
             return date ? new Date(date).toLocaleDateString() : 'N/A';

@@ -1,64 +1,85 @@
 .react-datepicker {
-    &-wrapper {
-        width: 100%;
+  &-wrapper {
+    width: 100%;
+  }
+
+  @include themed() {
+    border: 1px solid t(border);
+    background-color: t(datepicker-bg);
+  }
+
+  &__day-name,
+  &__day {
+    @include themed() {
+      color: t(txt-main);
     }
+  }
+
+  &__current-month {
+    @include themed() {
+      color: t(txt-secondary);
+    }
+  }
+
+  &__month-container {
+    border-radius: 5px;
 
     @include themed() {
-        border: 1px solid t(border);
-        background-color: t(datepicker-bg);
+      color: t(txt-main);
+      background-color: t(datepicker-bg);
+    }
+  }
+
+  &__day--selected {
+    @include themed() {
+      color: t(modal-bg);
+      background-color: t(secondary-color);
+    }
+  }
+
+  &__day--keyboard-selected {
+    @include themed() {
+      color: t(modal-bg);
+      background-color: t(border);
+    }
+  }
+
+  &__day:hover {
+    @include themed() {
+      color: t(txt-main);
+      background-color: t(card-bg);
+    }
+  }
+
+  &__header {
+    @include themed() {
+      color: t(txt-main);
+      background-color: t(datepicker-header);
     }
 
-    &__day-name,
-    &__day {
-        @include themed() {
-            color: t(txt-main);
-        }
+    &__dropdown {
+      padding: 10px 0 5px;
+      display: flex;
+      justify-content: space-around;
     }
+  }
 
-    &__current-month {
-        @include themed() {
-            color: t(txt-secondary);
-        }
+  &__month-select,
+  &__year-select {
+    padding: 3px;
+    border-radius: 4px;
+
+    @include themed() {
+      color: t(txt-main);
+      background-color: t(datepicker-bg);
     }
+  }
 
-    &__month-container {
-        border-radius: 5px;
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
 
-        @include themed() {
-            color: t(txt-main);
-            background-color: t(datepicker-bg);
-        }
-    }
-
-    &__day--selected {
-        @include themed() {
-            color: t(modal-bg);
-            background-color: t(secondary-color);
-        }
-    }
-
-    &__day--keyboard-selected {
-        @include themed() {
-            color: t(modal-bg);
-            background-color: t(border);
-        }
-    }
-
-    &__day:hover {
-        @include themed() {
-            color: t(txt-main);
-            background-color: t(card-bg);
-        }
-    }
-
-    &__header {
-        @include themed() {
-            color: t(txt-main);
-            background-color: t(datepicker-header);
-        }
-    }
-
-    &__triangle {
-        display: none;
-    }
+  &__triangle {
+    display: none;
+  }
 }

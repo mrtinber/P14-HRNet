@@ -25,7 +25,7 @@ export const useEmployeeForm = () => {
         event.preventDefault();
 
         if (!validateForm()) {
-            setError('All inputs must be completed.')
+            setError('All fields must be filled out.')
             console.error({ error })
             return;
         }

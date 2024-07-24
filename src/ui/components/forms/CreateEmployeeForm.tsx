@@ -49,13 +49,20 @@ export const CreateEmployeeForm = () => {
             selected={dateOfBirth}
             onChange={handleDateOfBirthChange}
             dateFormat="dd/MM/yyyy"
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode="select"
           />
-          <label htmlFor="start-date">Start date</label>
+          <label htmlFor="start-date">Starting Date</label>
           <DatePicker
             id="start-date"
             selected={startDate}
             onChange={handleDateOfStart}
             dateFormat="dd/MM/yyyy"
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode="select"
+
           />
           <label htmlFor="department">Department</label>
           <Select
