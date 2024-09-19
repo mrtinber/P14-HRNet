@@ -2,7 +2,10 @@
 
 # HRNet
 
-![Demo of the dark mode](/public/darkmode_example.gif)
+<p align="center">
+  <img src="/public/darkmode_example.gif" alt="Demo of the dark mode" width="100%" />
+</p>
+
 
 ## Description
 
