@@ -25,7 +25,7 @@ form {
         padding-top: 4px;
 
         @include themed() {
-            color: t(error)
+            color: t(error);
         }
     }
 }
